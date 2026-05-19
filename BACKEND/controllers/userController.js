@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 
 const saltRound = 10
 
+// create 
 const userRegister = async (req, res) => {
     const { name, email, password, address, phoneNo, licenceNo, licenceImg } = req.body
     try {
@@ -48,7 +49,7 @@ const userLogin = async (req, res) => {
         if (!matchPassword) {
             res.status(200).json({ msg: "PASSWORD NOT MATCH" })
         }
-        res.status(200).json({ msg: "LOGIN SUCESS" })
+        res.status(200).json({ msg: "LOGIN SUCESS" }) 
 
 
     } catch (error) {
