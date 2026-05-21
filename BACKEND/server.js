@@ -10,16 +10,17 @@ connectDb()
 
 const PORT = 3000
 
-app.use(cors({origin:"http://localhost:5177",
-    credentials:true
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
 }))
 
 app.use(express.json())
-app.use('/user',userRouter)
-app.use('/car',carRouter)
+app.use('/user', userRouter)
+app.use('/car', carRouter)
 
 
-app.listen(PORT,()=>{
-    console.log("SERVER RUNNING");
-    
+app.listen(PORT, () => {
+    console.log("SERVER RUNNING on",PORT);
+
 })

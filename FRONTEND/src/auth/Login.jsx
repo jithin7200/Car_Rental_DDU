@@ -8,7 +8,7 @@ import {
   CarFront,
   Headphones,
 } from "lucide-react";
-
+import { useLocation,Link } from "react-router-dom";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -181,9 +181,11 @@ export default function LoginPage() {
               </div>
 
               {/* Button */}
+              <Link to="/get">
               <button className="w-full py-4 rounded-2xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
                 Login Now →
               </button>
+              </Link>
             </form>
 
             {/* Divider */}

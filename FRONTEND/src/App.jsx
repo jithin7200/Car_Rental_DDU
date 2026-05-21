@@ -1,13 +1,10 @@
 import React from 'react'
-import CarRoute from "./Routes/CarRoute"
-import LoginPage from './auth/Login'
+import CarRoute from './Routes/CarRoute'
 
 function App() {
   return (
     <div>
-      <LoginPage/>  
-
-     <CarRoute />
+      <CarRoute/>
       
     </div>
   )
