@@ -1,11 +1,14 @@
 import React from 'react'
-import LoginPage
+import CarRoute from "./Routes/CarRoute"
+import LoginPage from './auth/Login'
 
-from './auth/Login'
 function App() {
   return (
     <div>
-      <LoginPage/>
+      <LoginPage/>  
+
+     <CarRoute />
+      
     </div>
   )
 }
