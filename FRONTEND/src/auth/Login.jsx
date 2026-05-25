@@ -7,42 +7,48 @@ import {
   Headphones,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../API/CarApi";
-export default function LoginPage() {
 
-  const login =()=>{
-   
-  const [form , setForm] = useState({
-    email:"",
-    password:"",
-  });
-const handelChange=(e)=>{
-  setForm({
-    ...form, 
-    [e.target.name]:e.target.value,
-  });
-};
-const handelSubmit = async(e)=>{
-  e.preventDefault();
-  try {
-    const res = await LoginUser(form);
-    if(res.success){
-      console.log("Login Successful");
-      
-    }
-    else{
-      console.log("Error");
-      
-    }
-  } catch (error) {
-    console.log("ERROR");
-    
-  }
-};
+const Login = () => {
+//   const navigate = useNavigate();
 
-  }
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const handelChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await LoginUser(form);
+
+      console.log(res);
+
+      if (res.msg) {
+        alert("Login ");
+
+        // Navigate after login
+        // navigate("/get");
+      } else {
+        alert(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+
+      alert("Something went wrong");
+    }
+  };
 
   const features = [
     {
@@ -68,7 +74,7 @@ const handelSubmit = async(e)=>{
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
       <div className="w-full max-w-7xl min-h-[90vh] rounded-[35px] overflow-hidden border border-zinc-800 grid lg:grid-cols-2 bg-[#050816]">
 
-        {/* LEFT */}
+        {/* LEFT SIDE */}
         <div
           className="relative p-10 flex flex-col justify-between bg-cover bg-center"
           style={{
@@ -80,7 +86,7 @@ const handelSubmit = async(e)=>{
           <div className="absolute top-40 left-40 w-72 h-72 bg-green-500/20 blur-[120px]" />
 
           <div className="relative z-10">
-            {/* Logo */}
+            {/* LOGO */}
             <div className="flex items-center gap-3">
               <div className="bg-green-500/20 p-3 rounded-xl">
                 <CarFront className="text-green-400" size={34} />
@@ -97,7 +103,7 @@ const handelSubmit = async(e)=>{
               </div>
             </div>
 
-            {/* Text */}
+            {/* TEXT */}
             <div className="mt-16">
               <p className="text-green-400 font-semibold mb-4">
                 WELCOME BACK
@@ -109,13 +115,13 @@ const handelSubmit = async(e)=>{
               </h1>
 
               <p className="mt-6 max-w-md text-lg text-zinc-300 leading-8">
-                Explore premium cars and enjoy a seamless rental experience
-                with DriveX.
+                Explore premium cars and enjoy a seamless rental
+                experience with DriveX.
               </p>
             </div>
           </div>
 
-          {/* Features */}
+          {/* FEATURES */}
           <div className="relative z-10 flex flex-wrap gap-6">
             {features.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="flex items-center gap-3">
@@ -132,19 +138,22 @@ const handelSubmit = async(e)=>{
           </div>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT SIDE */}
         <div className="relative flex items-center justify-center p-8 bg-[#050816]">
           <div className="absolute top-32 right-32 w-80 h-80 bg-green-500/10 blur-[120px]" />
 
           <div className="relative z-10 w-full max-w-xl rounded-[30px] border border-zinc-800 bg-[#0a0f1f]/80 p-10 backdrop-blur-xl">
 
-            {/* Top */}
+            {/* TOP */}
             <div className="flex justify-end mb-10 text-zinc-300">
               Don’t have an account?
 
-              <span className="ml-2 text-green-400 cursor-pointer">
+              <Link
+                to="/register"
+                className="ml-2 text-green-400 cursor-pointer hover:underline"
+              >
                 Sign Up
-              </span>
+              </Link>
             </div>
 
             <h1 className="text-5xl font-bold">Welcome Back!</h1>
@@ -153,10 +162,10 @@ const handelSubmit = async(e)=>{
               Login to continue your journey
             </p>
 
-            {/* Form */}
-            <form action="" onSubmit={handelSubmit} className="mt-10 space-y-6">
+            {/* FORM */}
+            <form onSubmit={handelSubmit} className="mt-10 space-y-6">
 
-              {/* Email */}
+              {/* EMAIL */}
               <div>
                 <label className="block mb-2 text-lg">
                   Email Address
@@ -165,13 +174,15 @@ const handelSubmit = async(e)=>{
                 <input
                   type="email"
                   name="email"
-                  
-                  placeholder="Enter your email" value={form.email} onChange={handelChange}
+                  value={form.email}
+                  onChange={handelChange}
+                  placeholder="Enter your email"
+                  required
                   className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
                 />
               </div>
 
-              {/* Password */}
+              {/* PASSWORD */}
               <div>
                 <label className="block mb-2 text-lg">
                   Password
@@ -180,16 +191,19 @@ const handelSubmit = async(e)=>{
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                     name="password"
-                     value={form.password} 
-                     onChange={handelChange}
+                    name="password"
+                    value={form.password}
+                    onChange={handelChange}
                     placeholder="Enter your password"
+                    required
                     className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
                   />
 
                   <button
-                    type="submit"
-                    // onClick={() => setShowPassword(!showPassword)}
+                    type="button"
+                    onClick={() =>
+                      setShowPassword(!showPassword)
+                    }
                     className="absolute right-4 top-1/2 -translate-y-1/2"
                   >
                     {showPassword ? (
@@ -201,7 +215,7 @@ const handelSubmit = async(e)=>{
                 </div>
               </div>
 
-              {/* Options */}
+              {/* OPTIONS */}
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-3">
                   <input
@@ -219,16 +233,16 @@ const handelSubmit = async(e)=>{
                 </button>
               </div>
 
-              {/* Button */}
-              <Link to="/get">
-                <button className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
-                  Login Now →
-                </button>
-              </Link>
-
+              {/* LOGIN BUTTON */}
+              <button
+                type="submit"
+                className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition"
+              >
+                Login Now →
+              </button>
             </form>
 
-            {/* Divider */}
+            {/* DIVIDER */}
             <div className="flex items-center gap-4 my-10">
               <div className="flex-1 h-px bg-zinc-800" />
 
@@ -239,7 +253,7 @@ const handelSubmit = async(e)=>{
               <div className="flex-1 h-px bg-zinc-800" />
             </div>
 
-            {/* Socials */}
+            {/* SOCIAL LOGIN */}
             <div className="grid grid-cols-3 gap-4">
               {socials.map((item) => (
                 <button
@@ -251,9 +265,12 @@ const handelSubmit = async(e)=>{
               ))}
             </div>
 
-            {/* Footer */}
+            {/* FOOTER */}
             <div className="flex items-center justify-center gap-3 mt-10 text-zinc-400">
-              <ShieldCheck className="text-green-400" size={20} />
+              <ShieldCheck
+                className="text-green-400"
+                size={20}
+              />
 
               <p>
                 Your data is protected with our security system
@@ -265,4 +282,6 @@ const handelSubmit = async(e)=>{
       </div>
     </div>
   );
-}
+};
+
+export default Login;
