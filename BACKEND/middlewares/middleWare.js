@@ -1,9 +1,13 @@
 const jwt = require('jsonwebtoken')
 
 const authMiddleware = async(req,res,next)=>{
-    const header = req.header('Autohrization')
+    const header = req.header('Authorization')
+    console.log(header);
+    
     if(!header){
         return  res.status(400).json({ msg: "Please Login to continue" })
+       
+        
     }
     try {
         const token = header.split(" ")[1]

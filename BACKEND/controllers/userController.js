@@ -54,6 +54,14 @@ const userLogin = async (req, res) => {
         const token = jwt.sign({id:user._id},process.env.SECRET_KEY,{expiresIn:'1h'})
         res.status(200).json({ msg: "LOGIN SUCESS" ,token:token}) 
 
+           res.cookie("token",token,{
+            httpOnly:true,
+           secure:true,
+           sameSite:'strict',
+           maxAge:24*60*60*1000
+
+        })
+
 
     } catch (error) {
        res.status(500).json({ msg: `SERVER ERROR ${error}` })

@@ -1,15 +1,47 @@
 import React, { useState } from "react";
 import {
-  Mail,
-  Lock,
   Eye,
   EyeOff,
   ShieldCheck,
   CarFront,
   Headphones,
 } from "lucide-react";
-import { useLocation,Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+import { LoginUser } from "../API/CarApi";
 export default function LoginPage() {
+
+  const login =()=>{
+   
+  const [form , setForm] = useState({
+    email:"",
+    password:"",
+  });
+const handelChange=(e)=>{
+  setForm({
+    ...form, 
+    [e.target.name]:e.target.value,
+  });
+};
+const handelSubmit = async(e)=>{
+  e.preventDefault();
+  try {
+    const res = await LoginUser(form);
+    if(res.success){
+      console.log("Login Successful");
+      
+    }
+    else{
+      console.log("Error");
+      
+    }
+  } catch (error) {
+    console.log("ERROR");
+    
+  }
+};
+
+  }
   const [showPassword, setShowPassword] = useState(false);
 
   const features = [
@@ -58,6 +90,7 @@ export default function LoginPage() {
                 <h1 className="text-4xl font-bold">
                   Drive<span className="text-green-400">X</span>
                 </h1>
+
                 <p className="text-sm tracking-wider text-zinc-300">
                   PREMIUM CAR RENTAL
                 </p>
@@ -108,67 +141,73 @@ export default function LoginPage() {
             {/* Top */}
             <div className="flex justify-end mb-10 text-zinc-300">
               Don’t have an account?
+
               <span className="ml-2 text-green-400 cursor-pointer">
                 Sign Up
               </span>
             </div>
 
             <h1 className="text-5xl font-bold">Welcome Back!</h1>
+
             <p className="mt-3 text-lg text-zinc-400">
               Login to continue your journey
             </p>
 
             {/* Form */}
-            <form className="mt-10 space-y-6">
+            <form action="" onSubmit={handelSubmit} className="mt-10 space-y-6">
 
-              {/* Input Component */}
-              {[
-                {
-                  label: "Email Address",
-                  type: "email",
-                  placeholder: "Enter your email",
-                  icon: Mail,
-                },
-                {
-                  label: "Password",
-                  type: showPassword ? "text" : "password",
-                  placeholder: "Enter your password",
-                  icon: Lock,
-                  password: true,
-                },
-              ].map(({ label, type, placeholder, icon: Icon, password }) => (
-                <div key={label}>
-                  <label className="block mb-3 text-lg">{label}</label>
+              {/* Email */}
+              <div>
+                <label className="block mb-2 text-lg">
+                  Email Address
+                </label>
 
-                  <div className="flex items-center px-5 py-4 rounded-2xl border border-zinc-700 bg-[#0d1325] focus-within:border-green-400">
-                    <Icon className="text-zinc-400" size={22} />
+                <input
+                  type="email"
+                  name="email"
+                  
+                  placeholder="Enter your email" value={form.email} onChange={handelChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
+                />
+              </div>
 
-                    <input
-                      type={type}
-                      placeholder={placeholder}
-                      className="w-full bg-transparent outline-none px-4 text-lg"
-                    />
+              {/* Password */}
+              <div>
+                <label className="block mb-2 text-lg">
+                  Password
+                </label>
 
-                    {password && (
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="text-zinc-400" size={22} />
-                        ) : (
-                          <Eye className="text-zinc-400" size={22} />
-                        )}
-                      </button>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                     name="password"
+                     value={form.password} 
+                     onChange={handelChange}
+                    placeholder="Enter your password"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
+                  />
+
+                  <button
+                    type="submit"
+                    // onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="text-gray-500" size={20} />
+                    ) : (
+                      <Eye className="text-gray-500" size={20} />
                     )}
-                  </div>
+                  </button>
                 </div>
-              ))}
+              </div>
 
               {/* Options */}
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-3">
-                  <input type="checkbox" className="accent-green-500" />
+                  <input
+                    type="checkbox"
+                    className="accent-green-500"
+                  />
                   Remember me
                 </label>
 
@@ -182,16 +221,21 @@ export default function LoginPage() {
 
               {/* Button */}
               <Link to="/get">
-              <button className="w-full py-4 rounded-2xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
-                Login Now →
-              </button>
+                <button className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
+                  Login Now →
+                </button>
               </Link>
+
             </form>
 
             {/* Divider */}
             <div className="flex items-center gap-4 my-10">
               <div className="flex-1 h-px bg-zinc-800" />
-              <p className="text-zinc-400">Or login with</p>
+
+              <p className="text-zinc-400">
+                Or login with
+              </p>
+
               <div className="flex-1 h-px bg-zinc-800" />
             </div>
 
@@ -210,11 +254,15 @@ export default function LoginPage() {
             {/* Footer */}
             <div className="flex items-center justify-center gap-3 mt-10 text-zinc-400">
               <ShieldCheck className="text-green-400" size={20} />
-              <p>Your data is protected with our security system</p>
+
+              <p>
+                Your data is protected with our security system
+              </p>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}
