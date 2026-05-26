@@ -22,7 +22,7 @@ const userModel = new mongoose.Schema({
         required:true
     },
     licenceNo:{
-        type:Number,
+        type:String,
         required:true
     },
     licenceImg:{

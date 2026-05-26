@@ -278,45 +278,40 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../API/CarApi";
-
 export default function LoginPage() {
 
-  const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
+  const login =()=>{
+   
+  const [form , setForm] = useState({
+    email:"",
+    password:"",
   });
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handelChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handelSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await LoginUser(form);
-
-      console.log(res);
-
-      if (res.success) {
-        console.log("Login Success");
-
-        navigate("/get");
-      } else {
-        console.log("Invalid Credentials");
-      }
-
-    } catch (error) {
-      console.log("ERROR :", error);
+const handelChange=(e)=>{
+  setForm({
+    ...form, 
+    [e.target.name]:e.target.value,
+  });
+};
+const handelSubmit = async(e)=>{
+  e.preventDefault();
+  try {
+    const res = await LoginUser(form);
+    if(res.success){
+      console.log("Login Successful");
+      
     }
-  };
+    else{
+      console.log("Error");
+      
+    }
+  } catch (error) {
+    console.log("ERROR");
+    
+  }
+};
+
+  }
+  const [showPassword, setShowPassword] = useState(false);
 
   const features = [
     {
@@ -342,7 +337,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
       <div className="w-full max-w-7xl min-h-[90vh] rounded-[35px] overflow-hidden border border-zinc-800 grid lg:grid-cols-2 bg-[#050816]">
 
-        {/* LEFT */}
+        {/* LEFT SIDE */}
         <div
           className="relative p-10 flex flex-col justify-between bg-cover bg-center"
           style={{
@@ -354,7 +349,6 @@ export default function LoginPage() {
           <div className="absolute top-40 left-40 w-72 h-72 bg-green-500/20 blur-[120px]" />
 
           <div className="relative z-10">
-
             {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="bg-green-500/20 p-3 rounded-xl">
@@ -372,7 +366,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Text */}
+            {/* TEXT */}
             <div className="mt-16">
               <p className="text-green-400 font-semibold mb-4">
                 WELCOME BACK
@@ -384,13 +378,13 @@ export default function LoginPage() {
               </h1>
 
               <p className="mt-6 max-w-md text-lg text-zinc-300 leading-8">
-                Explore premium cars and enjoy a seamless rental experience
-                with DriveX.
+                Explore premium cars and enjoy a seamless rental
+                experience with DriveX.
               </p>
             </div>
           </div>
 
-          {/* Features */}
+          {/* FEATURES */}
           <div className="relative z-10 flex flex-wrap gap-6">
             {features.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="flex items-center gap-3">
@@ -407,21 +401,19 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT SIDE */}
         <div className="relative flex items-center justify-center p-8 bg-[#050816]">
           <div className="absolute top-32 right-32 w-80 h-80 bg-green-500/10 blur-[120px]" />
 
           <div className="relative z-10 w-full max-w-xl rounded-[30px] border border-zinc-800 bg-[#0a0f1f]/80 p-10 backdrop-blur-xl">
 
-            {/* Top */}
+            {/* TOP */}
             <div className="flex justify-end mb-10 text-zinc-300">
               Don’t have an account?
 
-              <Link to="/register">
-                <span className="ml-2 text-green-400 cursor-pointer">
-                  Sign Up
-                </span>
-              </Link>
+              <span className="ml-2 text-green-400 cursor-pointer">
+                Sign Up
+              </span>
             </div>
 
             <h1 className="text-5xl font-bold">Welcome Back!</h1>
@@ -431,9 +423,9 @@ export default function LoginPage() {
             </p>
 
             {/* Form */}
-            <form onSubmit={handelSubmit} className="mt-10 space-y-6">
+            <form action="" onSubmit={handelSubmit} className="mt-10 space-y-6">
 
-              {/* Email */}
+              {/* EMAIL */}
               <div>
                 <label className="block mb-2 text-lg">
                   Email Address
@@ -442,14 +434,13 @@ export default function LoginPage() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
-                  value={form.email}
-                  onChange={handelChange}
+                  
+                  placeholder="Enter your email" value={form.email} onChange={handelChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
                 />
               </div>
 
-              {/* Password */}
+              {/* PASSWORD */}
               <div>
                 <label className="block mb-2 text-lg">
                   Password
@@ -462,12 +453,13 @@ export default function LoginPage() {
                     value={form.password}
                     onChange={handelChange}
                     placeholder="Enter your password"
+                    required
                     className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-white text-black outline-none focus:border-green-500"
                   />
 
                   <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
+                    type="submit"
+                    // onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2"
                   >
                     {showPassword ? (
@@ -479,7 +471,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Options */}
+              {/* OPTIONS */}
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-3">
                   <input
@@ -498,16 +490,15 @@ export default function LoginPage() {
               </div>
 
               {/* Button */}
-              <button
-                type="submit"
-                className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition"
-              >
-                Login Now →
-              </button>
+              <Link to="/get">
+                <button className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
+                  Login Now →
+                </button>
+              </Link>
 
             </form>
 
-            {/* Divider */}
+            {/* DIVIDER */}
             <div className="flex items-center gap-4 my-10">
               <div className="flex-1 h-px bg-zinc-800" />
 
@@ -518,7 +509,7 @@ export default function LoginPage() {
               <div className="flex-1 h-px bg-zinc-800" />
             </div>
 
-            {/* Socials */}
+            {/* SOCIAL LOGIN */}
             <div className="grid grid-cols-3 gap-4">
               {socials.map((item) => (
                 <button
@@ -530,9 +521,12 @@ export default function LoginPage() {
               ))}
             </div>
 
-            {/* Footer */}
+            {/* FOOTER */}
             <div className="flex items-center justify-center gap-3 mt-10 text-zinc-400">
-              <ShieldCheck className="text-green-400" size={20} />
+              <ShieldCheck
+                className="text-green-400"
+                size={20}
+              />
 
               <p>
                 Your data is protected with our security system
@@ -544,4 +538,6 @@ export default function LoginPage() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;

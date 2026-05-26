@@ -52,6 +52,7 @@ const userLogin = async (req, res) => {
         }
 
         const token = jwt.sign({id:user._id},process.env.SECRET_KEY,{expiresIn:'1h'})
+        res.status(200).json({ msg: "LOGIN SUCESS" ,token:token}) 
 
            res.cookie("token",token,{
             httpOnly:true,
@@ -60,15 +61,73 @@ const userLogin = async (req, res) => {
            maxAge:24*60*60*1000
 
         })
-        res.status(200).json({ success:true, msg: "LOGIN SUCESS" ,token:token}) 
 
 
     } catch (error) {
       
        res.status(500).json({ msg: `SERVER ERROR ${error}` })
+       console.log(error);
+       
     }
 }
 
 // module.exports = userLogin
 
 module.exports = { userRegister, userLogin }
+
+
+// const userLogin = async (req, res) => {
+//     const { email, password } = req.body
+
+//     try {
+
+//         if (!email || !password) {
+//             return res.status(400).json({
+//                 msg: "Please enter email and password"
+//             })
+//         }
+
+//         const user = await User.findOne({ email })
+
+//         if (!user) {
+//             return res.status(404).json({
+//                 msg: "USER NOT FOUND"
+//             })
+//         }
+
+//         const matchPassword = await bcrypt.compare(password, user.password)
+
+//         if (!matchPassword) {
+//             return res.status(400).json({
+//                 msg: "PASSWORD NOT MATCH"
+//             })
+//         }
+
+//         const token = jwt.sign(
+//             { id: user._id },
+//             process.env.SECRET_KEY,
+//             { expiresIn: '1h' }
+//         )
+
+//         // Set cookie BEFORE response
+//         res.cookie("token", token, {
+//             httpOnly: true,
+//             secure: true,
+//             sameSite: 'strict',
+//             maxAge: 24 * 60 * 60 * 1000
+//         })
+
+//         return res.status(200).json({
+//             msg: "LOGIN SUCCESS",
+//             token: token
+//         })
+
+//     } catch (error) {
+
+//         console.log(error)
+
+//         return res.status(500).json({
+//             msg: `SERVER ERROR ${error}`
+//         })
+//     }
+// }
