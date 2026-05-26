@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getdata } from '../API/CarApi'
+import Navbar from "../Components/Navbar";
 
 const GetCar = () => {
 
@@ -15,7 +16,7 @@ const GetCar = () => {
     }, [])
     return (
         <>
-
+<Navbar/>
             {data.map((i, index) => (
                     <div key={index}>
                         <h1>{i.name}</h1>
