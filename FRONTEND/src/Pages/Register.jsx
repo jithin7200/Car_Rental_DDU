@@ -1,31 +1,64 @@
 import React, { useState } from "react";
-import { Upload } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RegisterUser } from "../API/CarApi";
 
 const Register = () => {
-  const [form, setForm] = useState({});
 
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+    phoneNo: "",
+    licenceNo: "",
+    licenceImg: "",
+    role: "user",
+  });
+
+  // HANDLE CHANGE
   const handleChange = (e) => {
+
     setForm({
       ...form,
-      [e.target.name]:
-        e.target.type === "file"
-          ? e.target.files[0]
-          : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  // HANDLE SUBMIT
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
-    console.log(form);
+
+    try {
+
+      const res = await RegisterUser(form);
+
+      console.log(res);
+
+      if (res.success) {
+
+        alert("Registration Successful");
+
+        navigate("/");
+      }
+
+    } catch (error) {
+
+      console.log("ERROR :", error);
+    }
   };
 
   return (
+
     <div className="min-h-screen bg-black flex items-center justify-center p-5 text-white">
+
       <div className="w-full max-w-5xl grid lg:grid-cols-2 bg-[#0b0b0b] rounded-3xl overflow-hidden border border-zinc-800">
 
         {/* LEFT SIDE */}
         <div className="hidden lg:flex flex-col justify-center p-10 bg-[#070707]">
+
           <h1 className="text-5xl font-bold leading-tight">
             Create
             <span className="text-lime-500 block">
@@ -49,55 +82,109 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="p-8 space-y-4"
         >
+
           <h2 className="text-4xl font-bold mb-5">
             Register
           </h2>
 
-          {[
-            ["name", "Full Name"],
-            ["email", "Email"],
-            ["password", "Password"],
-            ["address", "Address"],
-            ["phoneNo", "Phone Number"],
-            ["licenceNo", "Licence Number"],
-          ].map(([name, placeholder]) => (
-            <input
-              key={name}
-              type={name === "password" ? "password" : "text"}
-              name={name}
-              placeholder={placeholder}
-              onChange={handleChange}
-              className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
-            />
-          ))}
-
-          {/* FILE INPUT */}
+          {/* NAME */}
           <input
-            type="file"
-            name="licenceImg"
-            id="fileUpload"
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
             onChange={handleChange}
-            className="hidden"
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
           />
 
-          <label
-            htmlFor="fileUpload"
-            className="w-full flex items-center justify-center gap-3 p-4 rounded-xl bg-black border border-zinc-700 text-zinc-400 cursor-pointer hover:border-lime-500"
+          {/* EMAIL */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* PASSWORD */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* ADDRESS */}
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            value={form.address}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* PHONE */}
+          <input
+            type="text"
+            name="phoneNo"
+            placeholder="Phone Number"
+            value={form.phoneNo}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* LICENCE NUMBER */}
+          <input
+            type="text"
+            name="licenceNo"
+            placeholder="Licence Number"
+            value={form.licenceNo}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* LICENCE IMAGE URL */}
+          <input
+            type="text"
+            name="licenceImg"
+            placeholder="Licence Image URL"
+            value={form.licenceImg}
+            onChange={handleChange}
+            required
+            className="w-full p-4 rounded-xl bg-black border border-zinc-700 outline-none focus:border-lime-500"
+          />
+
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="w-full bg-lime-500 text-black font-bold py-4 rounded-xl hover:bg-lime-600 transition"
           >
-            <Upload size={20} />
-            Choose Licence Image
-          </label>
-<Link to='/'>
-          <button className="w-full bg-lime-500 text-black font-bold py-4 rounded-xl hover:bg-lime-600">
             Create Account
           </button>
-</Link>
+
+          {/* LOGIN LINK */}
           <p className="text-center text-zinc-400">
+
             Already have account?
-            <span className="text-lime-500 ml-2 cursor-pointer">
-              Login
-            </span>
+
+            <Link to="/">
+              <span className="text-lime-500 ml-2 cursor-pointer">
+                Login
+              </span>
+            </Link>
+
           </p>
+
         </form>
       </div>
     </div>

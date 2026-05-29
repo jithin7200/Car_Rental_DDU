@@ -17,7 +17,7 @@ const CarDetails = () => {
     fuelType: "Petrol",
     transmission: "Automatic",
     seats: 5,
-    rentPerDay: 3800,
+    rentPerDay: 6800,
     mileage: "16 km/l",
     location: "Kochi",
     image:

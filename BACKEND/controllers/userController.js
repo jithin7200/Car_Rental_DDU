@@ -186,13 +186,8 @@ const userLogin = async (req, res) => {
 
         // JWT TOKEN WITH ROLE
         const token = jwt.sign(
-            {
-                id: user._id,
-                role: user.role,
-            },
-
+            { id: user._id, role: user.role, },
             process.env.SECRET_KEY,
-
             {
                 expiresIn: "1d",
             }
@@ -209,15 +204,8 @@ const userLogin = async (req, res) => {
         return res.status(200).json({
             success: true,
             msg: "LOGIN SUCCESS",
-
             token,
-
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-            },
+            user: { id: user._id, name: user.name, email: user.email, role: user.role, },
         });
 
     } catch (error) {
@@ -231,4 +219,16 @@ const userLogin = async (req, res) => {
     }
 };
 
-module.exports = { userRegister, userLogin, }; 
+
+const  getUser = async(req,res)=>{
+      try {
+        const posts = await User.find().sort({createdAt:-1})
+      res.status(200).json({msg:"All register",data:posts})
+      } catch (error) {
+        console.log(error);
+        
+          res.status(500).json({msg:"server error"})
+      }
+}
+
+module.exports = { userRegister, userLogin, getUser}; 

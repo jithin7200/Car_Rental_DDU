@@ -19,14 +19,32 @@ export const getdata = async () => {
 
 // LOIGN COOKIE
 
-export const LoginUser = async(postData)=>{
-     const res = await fetch(`${baseurl}/user/userLogin`,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify(postData)
-     })
+export const LoginUser = async (postData) => {
+  const res = await fetch(`${baseurl}/user/userLogin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(postData)
+  })
   return res.json()
 
 }
+
+// ================= REGISTER =================
+
+export const RegisterUser = async (postData) => {
+
+  const res = await fetch(
+    `${baseurl}/user/userRegister`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    }
+  );
+
+  return res.json();
+};
