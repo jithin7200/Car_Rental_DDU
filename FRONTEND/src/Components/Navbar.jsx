@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
+import Login from "../Pages/Login";
 
 export default function Navbar() {
 
@@ -54,9 +55,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            to="/about"
-            className="hover:text-green-400 transition"
-          >
+            to="/about" className="hover:text-green-400 transition" >
             About
           </Link>
 
@@ -78,10 +77,12 @@ export default function Navbar() {
           </button>
 
           {/* LOGOUT */}
+          <Link to="/login">
           <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 px-5 py-2 rounded-xl font-semibold transition">
             <LogOut size={18} />
             Logout
           </button>
+          </Link>
         </div>
 
         {/* MOBILE MENU BUTTON */}

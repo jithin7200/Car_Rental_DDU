@@ -14,9 +14,8 @@ function CarRoute() {
     <div>
     
       <Routes>
-
-         <Route path = '/' element={<LoginPage/>}></Route>
-         <Route path = '/get' element={<GetCar/>}></Route>
+        <Route path = '/' element={<GetCar/>}></Route>
+         <Route path = '/login' element={<LoginPage/>}></Route>
          <Route path = '/register' element={<Register/>}></Route>
          <Route path = '/admin' element={<AdminDashboard/>}></Route>
          <Route path = '/addCar' element={<AddCar/>}></Route>
