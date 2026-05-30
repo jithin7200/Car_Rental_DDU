@@ -384,7 +384,7 @@ export default function Login() {
         } else {
 
           // USER LOGIN
-          navigate("/get");
+          navigate("/");
         }
 
       } else {
@@ -608,37 +608,19 @@ export default function Login() {
 
                       <EyeOff
                         className="text-gray-500"
-                        size={20}
-                      />
-
-                    ) : (
+                        size={20} />) : (
 
                       <Eye
-                        className="text-gray-500"
-                        size={20}
-                      />
-                    )}
+                        className="text-gray-500" size={20} />)}
                   </button>
                 </div>
               </div>
 
               {/* OPTIONS */}
               <div className="flex items-center justify-between text-sm">
-
                 <label className="flex items-center gap-3">
-
-                  <input
-                    type="checkbox"
-                    className="accent-green-500"
-                  />
-
-                  Remember me
-                </label>
-
-                <button
-                  type="button"
-                  className="text-green-400 hover:underline"
-                >
+                  <input type="checkbox" className="accent-green-500" />  Remember me</label>
+                <button type="button" className="text-green-400 hover:underline">
                   Forgot Password?
                 </button>
               </div>
@@ -646,8 +628,7 @@ export default function Login() {
               {/* LOGIN BUTTON */}
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition"
-              >
+                className="w-full py-4 rounded-xl bg-green-500 hover:bg-green-600 text-xl font-semibold transition">
                 Login Now →
               </button>
 
