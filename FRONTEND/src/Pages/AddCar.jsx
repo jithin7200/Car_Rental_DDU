@@ -12,6 +12,8 @@ import {
   Upload,
 } from "lucide-react";
 
+import AdminSidebar from "../Components/Sidebar";
+
 const AddCar = () => {
   const [form, setForm] = useState({});
 
@@ -51,49 +53,9 @@ const AddCar = () => {
     <div className="min-h-screen bg-black text-white flex">
 
       {/* Sidebar */}
-      <div className="w-64 bg-[#071018] p-6 border-r border-gray-800 flex flex-col justify-between">
+   
+ <AdminSidebar/>
 
-        <div>
-          <h1 className="text-4xl font-bold mb-10">
-            Drive
-            <span className="text-lime-400">
-              X
-            </span>
-          </h1>
-
-          <div className="space-y-3">
-
-            {menu.map(([name, icon], i) => (
-              <button
-                key={i}
-                className={`w-full flex items-center gap-4 p-4 rounded-2xl ${
-                  name === "Cars"
-                    ? "bg-lime-600/20 text-lime-400"
-                    : "hover:bg-[#0d1b27]"
-                }`}
-              >
-                {icon}
-                {name}
-              </button>
-            ))}
-
-            <button className="w-full bg-lime-600 p-4 rounded-2xl flex items-center gap-4">
-              <PlusCircle />
-              Add Car
-            </button>
-
-            <button className="w-full hover:bg-[#0d1b27] p-4 rounded-2xl flex items-center gap-4">
-              <List />
-              All Cars
-            </button>
-          </div>
-        </div>
-
-        <button className="flex gap-3 text-gray-400 hover:text-red-400">
-          <LogOut />
-          Logout
-        </button>
-      </div>
 
       {/* Main */}
       <div className="flex-1 p-8">

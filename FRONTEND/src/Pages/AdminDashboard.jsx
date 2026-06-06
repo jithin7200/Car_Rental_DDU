@@ -13,6 +13,7 @@ import {
   Plus,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import AdminSidebar from "../Components/Sidebar";
 const AdminDashboard = () => {
   const [cars, setCars] = useState([]);
 
@@ -76,27 +77,8 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-black text-white flex">
 
       {/* Sidebar */}
-      <div className="w-64 bg-[#071018] border-r border-lime-500/10 p-6">
+    <AdminSidebar/>
 
-        <h1 className="text-4xl font-bold mb-10">
-          Drive<span className="text-lime-400">X</span>
-        </h1>
-
-        <div className="space-y-3">
-          {menu.map((item, i) => (
-            <button
-              key={i}
-              className={`w-full flex items-center gap-4 p-4 rounded-2xl text-lg ${i === 0
-                  ? "bg-lime-600"
-                  : "hover:bg-[#0d1b27]"
-                }`}
-            >
-              {item.icon}
-              {item.name}
-            </button>
-          ))}
-        </div>
-      </div>
 
       {/* Main */}
       <div className="flex-1 p-8">
@@ -201,8 +183,7 @@ const AdminDashboard = () => {
               {cars.map((car) => (
                 <tr
                   key={car._id}
-                  className="border-b border-gray-900 hover:bg-[#0d1b27]"
-                >
+                  className="border-b border-gray-900 hover:bg-[#0d1b27]"  >
 
                   <td className="py-5">
                     <div className="flex items-center gap-4">

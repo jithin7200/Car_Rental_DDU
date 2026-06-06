@@ -12,7 +12,7 @@ const createCar = async(req,res)=>{
              transmission,
              seats,
              rentPerDay,
-             image,
+             image:req.file.path,
              available,
              location,
              mileage
